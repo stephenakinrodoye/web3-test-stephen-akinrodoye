@@ -11,7 +11,7 @@
   </style>
 </head>
 <body>
-  <input type="text" placeholder="search" oninput="search()" class="css-input">
+  <input type="text" placeholder="search" oninput="search(event)">
   <p></p>
   <p></p>
   <p></p>
@@ -21,16 +21,21 @@
   <script>
     const array = ['JavaScript programming', 'HTML and CSS basics', 'Frontend development', 'Web design principles', 'Dynamic content handling'];
 
-    // const userInput = event.target.value.toLowerCase(); 
-    // const paragraphs = document.querySelectorAll('body > p');
-
-    function search() {
-      const userInput = event.target.value.toLowerCase(); 
+    function search(event) {
+      const userInput = event.target.value.toLowerCase();
       const paragraphs = document.querySelectorAll('body > p');
 
-      array.forEach((value, index) => {
+      // looping through the paragraphs to empty their contents
+      paragraphs.forEach((paragraph) => {
+        paragraph.textContent = ''
+      });
+
+      // create a new array containing elements fron user input
+      const newArray = array.filter(value => value.toLowerCase().includes(userInput)); 
+
+      newArray.forEach((value, index) => {
         const paragraph = paragraphs[index];
-        const lowerCaseValue = value.toLowerCase();
+        const lowerCaseValue = value.toLowerCase(); //convert to lowercase
         const startIndex = lowerCaseValue.indexOf(userInput);
 
         if (startIndex !== -1 && userInput !== '') {
